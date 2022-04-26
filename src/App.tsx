@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from 'react';
+import styles from './App.module.scss'
+import { LoginBox } from './components/LoginBox';
+import { MessageList } from './components/MessageList';
+import { SendMessageForm } from './components/SendMessageForm';
+import { AuthContext } from './contexts/auth';
 
-function App() {
+
+export function App() {
+
+  const { user } = useContext(AuthContext)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className={styles.contentWrapper}>
+      <MessageList></MessageList>
+      {!!user ? <SendMessageForm /> : <LoginBox />}
+    </main>
   );
 }
-
-export default App;
